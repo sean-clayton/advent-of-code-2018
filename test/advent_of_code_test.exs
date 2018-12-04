@@ -19,7 +19,7 @@ defmodule AdventOfCodeTest do
                "-1",
                "-2",
                "-3"
-             ])
+             ]) == -6
     end
 
     test "part 2" do

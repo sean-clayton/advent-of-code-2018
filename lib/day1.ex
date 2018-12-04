@@ -1,10 +1,7 @@
 defmodule Day1 do
   def get_final_frequency(frequency_list) when is_list(frequency_list) do
     frequency_list
-    |> Enum.map(fn string ->
-      {number, _} = Integer.parse(string)
-      number
-    end)
+    |> Enum.map(&parse_string_to_int/1)
     |> Enum.reduce(0, &+/2)
   end
 
@@ -16,10 +13,7 @@ defmodule Day1 do
 
   def get_first_repeated_frequency(frequency_stream) do
     frequency_stream
-    |> Stream.map(fn string ->
-      {number, _} = Integer.parse(string)
-      number
-    end)
+    |> Stream.map(&parse_string_to_int/1)
     |> Stream.cycle()
     |> Enum.reduce_while({0, MapSet.new([0])}, fn previous_frequency,
                                                   {current_frequency, past_frequencies} ->
@@ -31,4 +25,7 @@ defmodule Day1 do
       end
     end)
   end
+
+  defp parse_string_to_int(string) when is_binary(string),
+    do: string |> Integer.parse() |> elem(0)
 end
